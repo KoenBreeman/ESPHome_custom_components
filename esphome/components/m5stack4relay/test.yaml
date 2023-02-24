@@ -1,0 +1,50 @@
+esphome:
+  name: esphome components
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esphome-components"
+    password: "AbsqI1GxrmJv"
+
+captive_portal:
+
+i2c:
+  sda: 26
+  scl: 32
+  scan: true
+  id: bus_a
+
+switch:
+  - platform: m5stack4relay
+    sync_mode: true
+    id: Relais_control
+    i2c_id: bus_a
+    relay1: 
+      name: relais 1
+      id: relais_1 
+    relay2: 
+      name: relais 2
+      id: relais_2 
+    relay3: 
+      name: relais 3
+      id: relais_3 
+    relay4: 
+      name: relais 4
+      id: relais_4
