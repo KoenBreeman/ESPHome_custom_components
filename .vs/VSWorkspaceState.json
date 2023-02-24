@@ -6,5 +6,6 @@
     "\\esphome\\components\\DFR0971",
     "\\esphome\\components\\m5stack4relay"
   ],
+  "SelectedNode": "\\esphome\\components\\m5stack4relay\\m5stack4relay.cpp",
   "PreviewInSolutionExplorer": true
 }
