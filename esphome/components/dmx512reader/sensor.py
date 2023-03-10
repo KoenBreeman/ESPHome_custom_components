@@ -20,7 +20,9 @@ CONFIG_SCHEMA = (cv.Schema({
             cv.Required(CONF_CHANNEL): cv.int_range(min=1, max=512),
             #cv.Required(CONF_SWITCH_ID): cv.use_id(switch.Switch),
             cv.GenerateID(CONF_UNIVERSE): cv.use_id(DMX512Reader),
-            cv.Required(CONF_DMX512):sensor.sensor_schema()
+            cv.Required(CONF_DMX512):sensor.sensor_schema(
+                icon=ICON_COUNTER,
+                accuracy_decimals=0,)
             }).extend(cv.polling_component_schema("1s")))
 
 async def to_code(config):
