@@ -1,8 +1,8 @@
 esphome:
-  name: esphome components
+  name: esphome-web-c0b554
 
 esp32:
-  board: m5stack-atom
+  board: esp32dev
   framework:
     type: arduino
 
@@ -20,31 +20,22 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Esphome-components"
-    password: "AbsqI1GxrmJv"
+    ssid: "Esphome-Web-C0B554"
+    password: "Y2pLWWa2PBFg"
 
 captive_portal:
 
 i2c:
-  sda: 26
-  scl: 32
-  scan: true
-  id: bus_a
+  - id: i2c_0
+    sda: GPIO32
+    scl: GPIO26
 
 switch:
   - platform: m5stack4relay
     sync_mode: true
-    id: Relais_control
-    i2c_id: bus_a
-    relay1: 
-      name: relais 1
-      id: relais_1 
-    relay2: 
-      name: relais 2
-      id: relais_2 
-    relay3: 
-      name: relais 3
-      id: relais_3 
-    relay4: 
-      name: relais 4
-      id: relais_4
+    id: fourRelays
+    relay1: relay 1
+    led1:
+      name: led 1
+      assumed_state: true # not good implemented yet.
+      id: led_1

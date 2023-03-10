@@ -61,15 +61,24 @@ CONFIG_SCHEMA = (cv.Schema({
     .extend(i2c.i2c_device_schema(0x26)))
 
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    yield cg.register_component(var, config)
-    yield i2c.register_i2c_device(var, config)
+    await cg.register_component(var, config)
+    await i2c.register_i2c_device(var, config)
+
     if CONF_SYNC_MODE in config:
         cg.add(var.set_sync_mode(config[CONF_SYNC_MODE]))
 
     for key, value in ENUM_COMP_SWITCHES.items():
         if key in config:
             conf = config[key]
-            swi = yield switch.new_switch(conf, value)
+            swi = await switch.new_switch(conf, value)
+            
+            if CONF_INTERLOCK in conf:
+                interlock = []
+                for it in conf[CONF_INTERLOCK]:
+                    lock = await cg.get_variable(it)
+                    interlock.append(lock)
+                cg.add(swi.set_interlock(interlock))
+                cg.add(swi.set_interlock_wait_time(conf[CONF_INTERLOCK_WAIT_TIME]))
             cg.add(swi.set_parent(var))
