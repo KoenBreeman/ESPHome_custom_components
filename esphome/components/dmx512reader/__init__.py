@@ -31,7 +31,7 @@ CONFIG_SCHEMA = cv.Schema({
     #cv.Optional(CONF_FORCE_FULL_FRAMES, default=False): cv.boolean,
     #cv.Optional(CONF_CUSTOM_MAB_LEN, default=12): cv.int_range(min=12, max=1000),
     #cv.Optional(CONF_CUSTOM_BREAK_LEN, default=92): cv.int_range(min=92, max=1000),
-    cv.Optional(CONF_UPDATE_INTERVAL, default=500): cv.int_range(),
+    cv.Optional(CONF_UPDATE_INTERVAL, default="16ms"): cv.int_range(),
 }).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 
 async def to_code(config):
