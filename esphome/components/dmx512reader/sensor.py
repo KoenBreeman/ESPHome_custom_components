@@ -2,7 +2,7 @@ from esphome import pins, automation
 from esphome.components import output
 import esphome.config_validation as cv
 import esphome.codegen as cg
-from esphome.const import CONF_ID, CONF_CHANNEL, CONF_SENSOR
+from esphome.const import CONF_ID, CONF_CHANNEL, CONF_SENSOR, ICON_COUNTER
 from esphome.components import dmx512reader, switch, sensor
 from esphome.core import CORE, coroutine
 from . import DMX512Reader
