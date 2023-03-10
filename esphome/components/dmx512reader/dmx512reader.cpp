@@ -6,7 +6,7 @@ namespace dmx512reader {
 
 static const char *TAG = "dmx512reader";
 
-void DMX512Reader::loop() {
+void DMX512Reader::update() {
   bool update = false;
   // An update needs to be triggered periodically, if the
   // periodic update option is set
