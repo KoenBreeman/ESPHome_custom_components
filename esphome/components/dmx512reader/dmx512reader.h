@@ -27,7 +27,7 @@ class DMX512Reader : public Component, public uart::UARTDevice {
 
   void setup() override;
 
-  void update() override;
+  void loop() override;
 
   void dump_config() override;
 

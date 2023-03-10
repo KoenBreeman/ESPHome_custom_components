@@ -6,11 +6,12 @@ namespace dmx512reader {
 
 static const char *TAG = "dmx512reader";
 
-void DMX512Reader::update() {
+void DMX512Reader::loop() {
   bool update = false;
   // An update needs to be triggered periodically, if the
   // periodic update option is set
   if ( (((millis() - this->last_update_) > this->update_interval_) && this->periodic_update_)) {
+      ESP_LOGD(TAG, "Update UART read array");
     // Force the refresh rate to be within the spec
     if ((millis() - this->last_update_) > DMX_MIN_INTERVAL_MS) {
       update = true;
