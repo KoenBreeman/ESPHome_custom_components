@@ -8,19 +8,20 @@ namespace esphome {
 
 		void DMX512Reader::loop() {
 			bool update = false;
-			// An update needs to be triggered periodically, if the
-			// periodic update option is set
-			if ((((millis() - this->last_update_) > this->update_interval_) && this->periodic_update_)) {
-				//ESP_LOGD(TAG, "Update UART read array");
-			  // Force the refresh rate to be within the spec
-				if ((millis() - this->last_update_) > DMX_MIN_INTERVAL_MS) {
-					update = true;
-				}
-			}
+			update = true;
+			//// An update needs to be triggered periodically, if the
+			//// periodic update option is set
+			//if ((((millis() - this->last_update_) > this->update_interval_) && this->periodic_update_)) {
+			//	//ESP_LOGD(TAG, "Update UART read array");
+			//  // Force the refresh rate to be within the spec
+			//	if ((millis() - this->last_update_) > DMX_MIN_INTERVAL_MS) {
+			//		update = true;
+			//	}
+			//}
 			if (update) {
-				ESP_LOGD(TAG, "number of bytes available: %d", this->available());
+				
 				if (!this->available()) {
-
+					ESP_LOGD(TAG, "number of bytes available: %d", this->available());
 					return;
 				}
 				if (!(this->read_array(this->device_values_, this->max_chan_ + 1))) {
