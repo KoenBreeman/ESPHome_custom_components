@@ -9,6 +9,8 @@ namespace esphome {
 		void DMX512Reader::loop() {
 			bool update = false;
 			update = true;
+
+			uint8_t tmp_device_values[DMX_MSG_SIZE];
 			//// An update needs to be triggered periodically, if the
 			//// periodic update option is set
 			//if ((((millis() - this->last_update_) > this->update_interval_) && this->periodic_update_)) {
@@ -24,7 +26,8 @@ namespace esphome {
 					ESP_LOGD(TAG, "number of bytes available: %d", this->available());
 					return;
 				}
-				if (!(this->read_array(this->device_values_, this->max_chan_ + 1))) {
+				//if (!(this->read_array(this->device_values_, this->max_chan_ + 1))) {
+				if (!(this->read_array(tmp_device_values, this->max_chan_ + 1))) {
 
 					ESP_LOGW(TAG, "Junk on wire. Throwing away partial message");
 				}
@@ -32,6 +35,9 @@ namespace esphome {
 				{
 					ESP_LOGD(TAG, "Device value 20: %u", device_values_[20]);
 				}
+				// Check if DMX protocol, than the first bytes equals 0, otherwise it's RDM or another protocol
+				if (tmp_device_values[0] == 0)
+					this->devivce_values_ = tmp_device_values;
 				this->last_update_ = millis();
 			}
 		}
