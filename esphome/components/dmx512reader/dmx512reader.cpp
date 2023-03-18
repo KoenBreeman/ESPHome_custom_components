@@ -37,7 +37,7 @@ namespace esphome {
 				}
 				// Check if DMX protocol, than the first bytes equals 0, otherwise it's RDM or another protocol
 				if (tmp_device_values[0] == 0)
-					this->devivce_values_ = tmp_device_values;
+					this->device_values_ = tmp_device_values;
 				this->last_update_ = millis();
 			}
 		}
