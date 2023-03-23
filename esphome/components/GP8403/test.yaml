@@ -1,0 +1,50 @@
+esphome:
+  name: esphome-GP8403
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esphome-GP8403"
+    password: "Y2pLWWa2PBFg"
+
+captive_portal:
+
+i2c:
+  - id: bus_a
+    sda: 21
+    scl: 25
+
+GP8403:
+  - id: GP8403_ID1
+    max_level: 10
+    i2c_bus: bus_a
+
+output:
+  - platform: GP8403
+    id: GP8403_output_channel2
+    channel: 2
+  - platform: GP8403
+    id: GP8403_output_channel1
+    channel: 1
+
+fan:
+  - platform: speed
+    output: GP8403_output_channel2
+    name: "Ventilator"
+    speed_count: 100

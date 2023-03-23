@@ -34,14 +34,14 @@ class GP8403 : public i2c::I2CDevice, public Component {
    * @param channel Output channel. 0: channel 0; 1: channel 1; 2: all the channels
    * @return NONE
    */
-  void setDACOutVoltage(float state);
+  void setDACOutVoltage(float state, ChannelSelect channel);
   void setDACOutRange();
-  void set_channel(int channel_) { channel = static_cast<ChannelSelect>(channel_); }
+
   void set_OutVoltage(int max_power);
 
  protected:
   uint16_t voltage = 0;
-  ChannelSelect channel{ChannelSelect::Both};
+  //ChannelSelect channel{ChannelSelect::Both};
 
   void startSignal(void);
   void stopSignal(void);
@@ -52,6 +52,9 @@ class GP8403Output;
 class GP8403Output : public output::FloatOutput {
  public:
   void set_parent(GP8403 *parent) { parent_ = parent; }
+  void set_channel(int channel_) { channel = static_cast<ChannelSelect>(channel_); }
+
+  ChannelSelect channel{ChannelSelect::Both};
 
  protected:
   GP8403 *parent_;
