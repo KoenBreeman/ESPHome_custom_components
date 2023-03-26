@@ -25,10 +25,6 @@ CONF_SYNC_MODE = "sync_mode"
 
 RelayBit_ = M5RELAY4_ns.enum("RelayBit", is_class=True)
 ENUM_COMP_SWITCHES = {
-    CONF_LED1: RelayBit_.LED1,
-    CONF_LED2: RelayBit_.LED2,
-    CONF_LED3: RelayBit_.LED3,
-    CONF_LED4: RelayBit_.LED4,
     CONF_RELAY1: RelayBit_.RELAY1,
     CONF_RELAY2: RelayBit_.RELAY2,
     CONF_RELAY3: RelayBit_.RELAY3,
@@ -52,10 +48,6 @@ CONFIG_SCHEMA = (cv.Schema({
             cv.Optional(CONF_RELAY2): check_relayswitch(),
             cv.Optional(CONF_RELAY3): check_relayswitch(),
             cv.Optional(CONF_RELAY4): check_relayswitch(),
-            cv.Optional(CONF_LED1): check_relayswitch(),
-            cv.Optional(CONF_LED2): check_relayswitch(),
-            cv.Optional(CONF_LED3): check_relayswitch(),
-            cv.Optional(CONF_LED4): check_relayswitch(),
         })
     .extend(cv.COMPONENT_SCHEMA)
     .extend(i2c.i2c_device_schema(0x26)))
