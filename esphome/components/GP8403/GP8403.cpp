@@ -87,9 +87,6 @@ void GP8403::setup() {
 }
 
 void GP8403::loop() {
-  if (BooleansChannel1.OutputSin) {
-    outputSin
-  }
 
 }
 
@@ -373,9 +370,9 @@ void GP8403::outputSquare(uint16_t amp, uint16_t freq, uint16_t offset, int8_t d
 }
 
 void GP8403Output::set_output_sin(bool output_sin) {
-  if (this->channel = ChannelSelect::Channel1) {
+  if (this->channel == ChannelSelect::Channel1) {
     this->parent_->BooleansChannel1.OutputSin = output_sin;
-  } else if (this->channel = ChannelSelect::Channel2) {
+  } else if (this->channel == ChannelSelect::Channel2) {
     this->parent_->BooleansChannel2.OutputSin = output_sin;
   } else {
     this->parent_->BooleansChannelBoth.OutputSin = output_sin;
@@ -383,9 +380,9 @@ void GP8403Output::set_output_sin(bool output_sin) {
 }
 
 void GP8403Output::set_output_square(bool output_square) {
-  if (this->channel = ChannelSelect::Channel1) {
+  if (this->channel == ChannelSelect::Channel1) {
     this->parent_->BooleansChannel1.OutputSquare = output_square;
-  } else if (this->channel = ChannelSelect::Channel2) {
+  } else if (this->channel == ChannelSelect::Channel2) {
     this->parent_->BooleansChannel2.OutputSquare = output_square;
   } else {
     this->parent_->BooleansChannelBoth.OutputSquare = output_square;
@@ -393,9 +390,9 @@ void GP8403Output::set_output_square(bool output_square) {
 }
 
 void GP8403Output::set_output_triangle(bool output_triangle) {
-  if (this->channel = ChannelSelect::Channel1) {
+  if (this->channel == ChannelSelect::Channel1) {
     this->parent_->BooleansChannel1.OutputTriangle = output_triangle;
-  } else if (this->channel = ChannelSelect::Channel2) {
+  } else if (this->channel == ChannelSelect::Channel2) {
     this->parent_->BooleansChannel2.OutputTriangle = output_triangle;
   } else {
     this->parent_->BooleansChannelBoth.OutputTriangle = output_triangle;
