@@ -29,16 +29,16 @@ void GP8403::setup() {
  * @param channel Output channel. 0: channel 0; 1: channel 1; 2: all the channels
  * @return NONE
  */
-void GP8403::setDACOutVoltage(float state) {
+void GP8403::setDACOutVoltage(float state, ChannelSelect channel_) {
   std::vector<uint8_t> data;
   uint16_t dataTransmission;
   dataTransmission = ((uint16_t) (state * 4095)) << 4;
 
-  if (this->channel == ChannelSelect::Channel1) {
+  if (channel_ == ChannelSelect::Channel1) {
     data.push_back(GP8302_CONFIG_CURRENT_REG);
     data.push_back(dataTransmission & 0xFF);
     data.push_back((dataTransmission >> 8) & 0xFF);
-  } else if (this->channel == ChannelSelect::Channel2) {
+  } else if (channel_ == ChannelSelect::Channel2) {
     data.push_back(GP8302_CONFIG_CURRENT_REG << 1);
     data.push_back(dataTransmission & 0xFF);
     data.push_back((dataTransmission >> 8) & 0xFF);
@@ -85,6 +85,7 @@ void GP8403::set_OutVoltage(int max_power) {
 }
 
 void GP8403::startSignal(void) {
+ 
   //digitalWrite(_scl, HIGH);
   //digitalWrite(_sda, HIGH);
   //delayMicroseconds(I2C_CYCLE_BEFORE);
@@ -103,7 +104,7 @@ void GP8403::stopSignal(void) {
   //delayMicroseconds(I2C_CYCLE_TOTAL);
 }
 
-void GP8403Output::write_state(float state) { this->parent_->setDACOutVoltage(state); }
+void GP8403Output::write_state(float state) { this->parent_->setDACOutVoltage(state,this->channel); }
 
 }  // namespace GP8403
 }  // namespace esphome
