@@ -23,7 +23,7 @@ namespace esphome {
 			if (update) {
 				
 				if (!this->available()) {
-					ESP_LOGD(TAG, "number of bytes available: %d", this->available());
+					//ESP_LOGD(TAG, "number of bytes available: %d", this->available());
 					return;
 				}
 				//if (!(this->read_array(this->device_values_, this->max_chan_ + 1))) {
@@ -58,7 +58,7 @@ namespace esphome {
 
 		void DMX512Sensor::update() {
 			uint8_t sensorvalue = this->universe_->device_values_[this->channel_];
-			ESP_LOGD(TAG, "Channel '%f': value '%f'", this->channel_, sensorvalue);
+			//ESP_LOGD(TAG, "Channel '%f': value '%f'", this->channel_, sensorvalue);
 			this->dmxsensor_->publish_state((float)sensorvalue);
 
 		}
