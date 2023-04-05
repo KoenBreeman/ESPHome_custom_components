@@ -100,6 +100,7 @@ void GP8403::loop() {
  * @param channel Output channel. 0: channel 0; 1: channel 1; 2: all the channels
  * @return NONE
  */
+<<<<<<< HEAD
 void GP8403::setDACOutVoltage(float state, ChannelSelect channel_) {
   // std::vector<uint8_t> data;
   uint16_t dataTransmission;
@@ -125,6 +126,31 @@ void GP8403::setDACOutVoltage(float state, ChannelSelect channel_) {
   // if (this->write(data.data(), data.size()) != i2c::ERROR_OK) {
   //  ESP_LOGE(TAG, "Error writing to GP8403");
   //}
+=======
+void GP8403::setDACOutVoltage(float state) {
+  std::vector<uint8_t> data;
+  uint16_t dataTransmission;
+  dataTransmission = ((uint16_t) (state * 4095)) << 4;
+
+  if (this->channel == ChannelSelect::Channel1) {
+    data.push_back(GP8302_CONFIG_CURRENT_REG);
+    data.push_back(dataTransmission & 0xFF);
+    data.push_back((dataTransmission >> 8) & 0xFF);
+  } else if (this->channel == ChannelSelect::Channel2) {
+    data.push_back(GP8302_CONFIG_CURRENT_REG << 1);
+    data.push_back(dataTransmission & 0xFF);
+    data.push_back((dataTransmission >> 8) & 0xFF);
+  } else {
+    data.push_back(GP8302_CONFIG_CURRENT_REG);
+    data.push_back(dataTransmission & 0xFF);
+    data.push_back((dataTransmission >> 8) & 0xFF);
+    data.push_back(dataTransmission & 0xFF);
+    data.push_back((dataTransmission >> 8) & 0xFF);
+  }
+  if (this->write(data.data(), data.size()) != i2c::ERROR_OK) {
+    ESP_LOGE(TAG, "Error writing to GP8403");
+  }
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
 }
 
 /**
@@ -157,6 +183,7 @@ void GP8403::set_OutVoltage(int max_power) {
   }
 }
 
+<<<<<<< HEAD
 void GP8403::sendData(uint16_t dataTransmission, ChannelSelect channel_) {
   std::vector<uint8_t> data;
   if (channel_ == ChannelSelect::Channel1) {
@@ -177,6 +204,16 @@ void GP8403::sendData(uint16_t dataTransmission, ChannelSelect channel_) {
   if (this->write(data.data(), data.size()) != i2c::ERROR_OK) {
     ESP_LOGE(TAG, "Error writing to GP8403");
   }
+=======
+void GP8403::startSignal(void) {
+  //digitalWrite(_scl, HIGH);
+  //digitalWrite(_sda, HIGH);
+  //delayMicroseconds(I2C_CYCLE_BEFORE);
+  //digitalWrite(_sda, LOW);
+  //delayMicroseconds(I2C_CYCLE_AFTER);
+  //digitalWrite(_scl, LOW);
+  //delayMicroseconds(I2C_CYCLE_TOTAL);
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
 }
 //
 //void GP8403::outputSin(uint16_t amp, uint16_t freq, uint16_t offset, ChannelSelect channel) {
@@ -402,7 +439,20 @@ void GP8403::sendData(uint16_t dataTransmission, ChannelSelect channel_) {
 //  }
 //}
 
+<<<<<<< HEAD
 void GP8403Output::write_state(float state) { this->parent_->setDACOutVoltage(state, this->channel); }
+=======
+void GP8403::stopSignal(void) {
+  //digitalWrite(_sda, LOW);
+  //delayMicroseconds(I2C_CYCLE_BEFORE);
+  //digitalWrite(_scl, HIGH);
+  //delayMicroseconds(I2C_CYCLE_TOTAL);
+  //digitalWrite(_sda, HIGH);
+  //delayMicroseconds(I2C_CYCLE_TOTAL);
+}
+
+void GP8403Output::write_state(float state) { this->parent_->setDACOutVoltage(state); }
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
 
 }  // namespace GP8403
 }  // namespace esphome

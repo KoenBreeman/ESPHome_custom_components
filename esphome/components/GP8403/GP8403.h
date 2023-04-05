@@ -53,6 +53,7 @@ class GP8403 : public i2c::I2CDevice, public Component {
    * @param channel Output channel. 0: channel 0; 1: channel 1; 2: all the channels
    * @return NONE
    */
+<<<<<<< HEAD
   void setDACOutVoltage(float state, ChannelSelect channel);
   /**
    * @fn setDACOutVoltage
@@ -66,6 +67,11 @@ class GP8403 : public i2c::I2CDevice, public Component {
    * @brief Call the function to set the outputvoltage
    * @param max_power set the maximum power
    */
+=======
+  void setDACOutVoltage(float state);
+  void setDACOutRange();
+  void set_channel(int channel_) { channel = static_cast<ChannelSelect>(channel_); }
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
   void set_OutVoltage(int max_power);
   ///**
   // * @brief Call the function to output sine wave
@@ -95,7 +101,14 @@ class GP8403 : public i2c::I2CDevice, public Component {
   //void outputSquare(uint16_t amp, uint16_t freq, uint16_t offset, int8_t dutyCycle, ChannelSelect channel);
  protected:
   uint16_t voltage = 0;
+<<<<<<< HEAD
   void sendData(uint16_t dataTransmission, ChannelSelect channel);
+=======
+  ChannelSelect channel{ChannelSelect::Both};
+
+  void startSignal(void);
+  void stopSignal(void);
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
 };
 
 class GP8403Output;
@@ -103,6 +116,7 @@ class GP8403Output;
 class GP8403Output : public output::FloatOutput {
  public:
   void set_parent(GP8403 *parent) { parent_ = parent; }
+<<<<<<< HEAD
   void set_channel(int channel_) { channel = static_cast<ChannelSelect>(channel_); }
 
   //void set_output_sin(bool output_sin);
@@ -110,6 +124,8 @@ class GP8403Output : public output::FloatOutput {
   //void set_output_triangle(bool output_triangle);
 
   ChannelSelect channel{ChannelSelect::Both};
+=======
+>>>>>>> parent of 525c1df (Update output en init.py so that also channel can be set in the output. Also included a test.yaml)
 
  protected:
   GP8403 *parent_;
