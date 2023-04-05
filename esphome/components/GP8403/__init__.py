@@ -8,8 +8,7 @@ from esphome.const import (
     CONF_INVERTED,
     CONF_LEVEL,
     CONF_MAX_LEVEL,
-    CONF_CHANNEL,
-    CONF_ADDRESS
+    CONF_CHANNEL
 )
 from esphome.core import CORE
 
@@ -21,33 +20,20 @@ CODEOWNERS = ["@Koen Breeman"]
 GP8403_ns = cg.esphome_ns.namespace("GP8403")
 GP8403 = GP8403_ns.class_("GP8403", cg.Component)
 
-ADDRESSES = {
-    "0x58": 0x58,
-    "0x59": 0x59,
-    "0x5A": 0x5A,
-    "0x5B": 0x5B,
-    "0x5C": 0x5C,
-    "0x5D": 0x5D,
-    "0x5E": 0x5E,
-    "0x5F": 0x5F
-}
-
-CONF_I2C_ADDR = 0x5F#0X26
+CONF_I2C_ADDR = 0x5F
 
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(GP8403),
         cv.Required(CONF_MAX_LEVEL): cv.int_range(min=0, max=10),
-        #cv.Optional(CONF_ADDRESS,"0x5F"): cv.enum(ADDRESSES)
+        cv.Required(CONF_CHANNEL):cv.int_range(min=0, max=2)
     }
-    , extra=cv.ALLOW_EXTRA,
-).extend(cv.COMPONENT_SCHEMA).extend(i2c.i2c_device_schema(CONF_ADDRESS))
+).extend(cv.COMPONENT_SCHEMA).extend(i2c.i2c_device_schema(CONF_I2C_ADDR))
 
 async def to_code(config):
     cg.add_global(GP8403_ns.using)
     var = cg.new_Pvariable(config[CONF_ID])
     cg.add(var.set_OutVoltage(config[CONF_MAX_LEVEL]))
-    #cg.add(var.set_channel(config[CONF_CHANNEL]))
+    cg.add(var.set_channel(config[CONF_CHANNEL]))
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
-
