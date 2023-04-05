@@ -5,6 +5,11 @@
       "taskLabel": "task-ESPHomeKoen",
       "appliesTo": "/",
       "type": "launch"
+    },
+    {
+      "taskLabel": "task-GP8403",
+      "appliesTo": "esphome/components/GP8403/",
+      "type": "launch"
     }
   ]
 }
