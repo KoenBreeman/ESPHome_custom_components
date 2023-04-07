@@ -5,7 +5,7 @@ from esphome.const import CONF_INTERLOCK, CONF_ID, CONF_CHANNEL
 
 from .. import M5Stack_ns, M5Stack_4_Relays, CONF_M5Stack_4_Relays_ID
 
-DEPENDENCIES = ['M5Stack_4_Relays']
+DEPENDENCIES = ['m5stack_4_relays']
 
 #MULTI_CONF = True
 
