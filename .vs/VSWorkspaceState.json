@@ -3,7 +3,9 @@
     "",
     "\\esphome",
     "\\esphome\\components",
+    "\\esphome\\components\\GP8403\\output",
     "\\esphome\\components\\m5stack4relay"
   ],
+  "SelectedNode": "\\esphome\\components\\GP8403",
   "PreviewInSolutionExplorer": true
 }
