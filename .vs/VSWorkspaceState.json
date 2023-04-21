@@ -3,9 +3,9 @@
     "",
     "\\esphome",
     "\\esphome\\components",
-    "\\esphome\\components\\GP8403\\output",
-    "\\esphome\\components\\m5stack4relay"
+    "\\esphome\\components\\m5stack_4_relays",
+    "\\esphome\\components\\m5stack_4_relays\\switch"
   ],
-  "SelectedNode": "\\esphome\\components\\GP8403",
+  "SelectedNode": "\\esphome\\components\\m5stack_4_relays\\switch\\__init__.py",
   "PreviewInSolutionExplorer": true
 }

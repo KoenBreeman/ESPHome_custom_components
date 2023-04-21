@@ -1,0 +1,56 @@
+import esphome.codegen as cg
+import esphome.config_validation as cv
+from esphome import pins
+from esphome.components import uart
+from esphome.const import CONF_ID, CONF_TX_PIN, CONF_ENABLE_PIN, CONF_UPDATE_INTERVAL
+from esphome.core import CORE
+
+CODEOWNERS = ['@KoenBreeman']
+
+DEPENDENCIES = ['sensor']
+MULTI_CONF = True
+
+dmx512_reader_ns = cg.esphome_ns.namespace('dmx512reader')
+DMX512Reader = dmx512_reader_ns.class_('DMX512Reader', cg.Component)
+
+CONF_DMX512_ID = 'dmx512_id'
+#CONF_UART_NUM = 'uart_num'
+#CONF_PERIODIC_UPDATE = 'periodic_update'
+#CONF_FORCE_FULL_FRAMES = 'force_full_frames'
+#CONF_CUSTOM_BREAK_LEN = 'custom_break_len'
+#CONF_CUSTOM_MAB_LEN = 'custom_mab_len'
+
+UART_MAX = 1
+
+CONFIG_SCHEMA = cv.Schema({
+    cv.GenerateID(CONF_ID): cv.declare_id(DMX512Reader),
+    #cv.Optional(CONF_ENABLE_PIN): pins.gpio_output_pin_schema,
+    #cv.Optional(CONF_TX_PIN, default=5): pins.internal_gpio_output_pin_schema,
+    #cv.Optional(CONF_UART_NUM, default=1): cv.int_range(min=0, max=UART_MAX),
+    #cv.Optional(CONF_PERIODIC_UPDATE, default=True): cv.boolean,
+    #cv.Optional(CONF_FORCE_FULL_FRAMES, default=False): cv.boolean,
+    #cv.Optional(CONF_CUSTOM_MAB_LEN, default=12): cv.int_range(min=12, max=1000),
+    #cv.Optional(CONF_CUSTOM_BREAK_LEN, default=92): cv.int_range(min=92, max=1000),
+    #cv.Optional(CONF_UPDATE_INTERVAL, default="16ms"): cv.positive_time_period_milliseconds,
+}).extend(cv.COMPONENT_SCHEMA)#.extend(uart.UART_DEVICE_SCHEMA)
+
+async def to_code(config):
+    cg.add_global(dmx512_reader_ns.using)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+    #await uart.register_uart_device(var, config)
+
+    #if CONF_ENABLE_PIN in config:
+    #    enable = await cg.gpio_pin_expression(config[CONF_ENABLE_PIN])
+    #    cg.add(var.set_enable_pin(enable))
+
+    #if CONF_TX_PIN in config:
+    #    tx_pin = await cg.gpio_pin_expression(config[CONF_TX_PIN])
+    #    cg.add(var.set_uart_tx_pin(tx_pin))
+
+    #cg.add(var.set_uart_num(config[CONF_UART_NUM]))
+    #cg.add(var.set_periodic_update(config[CONF_PERIODIC_UPDATE]))
+    #cg.add(var.set_force_full_frames(config[CONF_FORCE_FULL_FRAMES]))
+    #cg.add(var.set_mab_len(config[CONF_CUSTOM_MAB_LEN]))
+    #cg.add(var.set_break_len(config[CONF_CUSTOM_BREAK_LEN]))
+    #cg.add(var.set_update_interval(config[CONF_UPDATE_INTERVAL]))
